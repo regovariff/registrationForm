@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -42,11 +42,50 @@ function FormBody() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (check) {
-      //save data to local storage/ txt file
+      if (
+        person.fullname &&
+        person.username &&
+        person.email &&
+        person.password &&
+        person.address &&
+        person.gender &&
+        person.status &&
+        person.state &&
+        person.zip &&
+        person.city
+      ) {
+        const newPerson = {
+          fullname: person.fullname,
+          username: person.username,
+          email: person.email,
+          password: person.password,
+          address: person.address,
+          gender: person.gender,
+          status: person.status,
+          state: person.state,
+          zip: person.zip,
+          city: person.city,
+        };
+        const updatedPersons = [...persons, newPerson];
+        localStorage.setItem("persons", JSON.stringify(updatedPersons));
+      } else {
+        window.alert("Fill all the information")
+      }
     } else {
       console.log("please agree first");
     }
   };
+
+  const persons = useMemo(() => {
+    //make sure the ts can identify the data type
+    const storedUsers = localStorage.getItem("persons");
+    return storedUsers ? JSON.parse(storedUsers) : [];
+  }, []);
+
+  useEffect(() => {
+    // Save the form data to local storage whenever it changes
+    localStorage.setItem("persons", JSON.stringify(persons));
+  }, [person, persons]);
 
   return (
     <>
