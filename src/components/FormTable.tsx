@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 interface Person {
   fullname: string;
@@ -14,20 +14,24 @@ interface Person {
 }
 
 function FormTable() {
-  // State to hold the data from local storage
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Person[]>([]);
+
+  const persons = useMemo(() => {
+    const storedData = localStorage.getItem("persons");
+    return storedData ? JSON.parse(storedData) : [];
+  }, []);
 
   useEffect(() => {
-    // Retrieve data from local storage and parse it
+    // Retrieve data from local storage
     const storedData = localStorage.getItem("persons");
     if (storedData) {
       setData(JSON.parse(storedData));
     }
-  }, []);
+  }, [persons]);
 
   return (
     <>
-      <table className="table table-dark table-striped mt-5">
+      <table className="table">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -43,7 +47,7 @@ function FormTable() {
           </tr>
         </thead>
         <tbody>
-          {data.map((person: Person, index) => (
+          {data.map((person: Person, index: number) => (
             <tr key={index}>
               <th scope="row">{index + 1}</th>
               <td>{person.fullname}</td>

@@ -16,7 +16,7 @@ interface Person {
   status: string;
   city: string;
   state: string;
-  zip: number | null;
+  zip: number;
 }
 
 function FormBody() {
@@ -30,13 +30,13 @@ function FormBody() {
     status: "",
     city: "",
     state: "",
-    zip: null,
+    zip: 34600,
   });
 
   const [check, setCheck] = useState<boolean>(false);
 
   const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCheck(e.target.checked);
+    setCheck(e.target.checked === true);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -77,13 +77,11 @@ function FormBody() {
   };
 
   const persons = useMemo(() => {
-    //make sure the ts can identify the data type
     const storedUsers = localStorage.getItem("persons");
     return storedUsers ? JSON.parse(storedUsers) : [];
   }, []);
 
   useEffect(() => {
-    // Save the form data to local storage whenever it changes
     localStorage.setItem("persons", JSON.stringify(persons));
   }, [person, persons]);
 
@@ -95,7 +93,7 @@ function FormBody() {
           <Form.Control
             placeholder="Peter Parker"
             value={person.fullname}
-            onChange={(e) => setPerson({ ...person, fullname: e.target.value })}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPerson({ ...person, fullname: e.target.value })}
           />
         </Form.Group>
 
@@ -104,7 +102,7 @@ function FormBody() {
           <Form.Control
             placeholder="Peter"
             value={person.username}
-            onChange={(e) => setPerson({ ...person, username: e.target.value })}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPerson({ ...person, username: e.target.value })}
           />
         </Form.Group>
 
@@ -115,7 +113,7 @@ function FormBody() {
               type="email"
               placeholder="Enter email"
               value={person.email}
-              onChange={(e) => setPerson({ ...person, email: e.target.value })}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPerson({ ...person, email: e.target.value })}
             />
           </Form.Group>
 
@@ -125,7 +123,7 @@ function FormBody() {
               type="password"
               placeholder="Password"
               value={person.password}
-              onChange={(e) =>
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setPerson({ ...person, password: e.target.value })
               }
             />
@@ -137,7 +135,7 @@ function FormBody() {
           <Form.Control
             placeholder="1234 Main St"
             value={person.address}
-            onChange={(e) => setPerson({ ...person, address: e.target.value })}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPerson({ ...person, address: e.target.value })}
           />
         </Form.Group>
 
@@ -147,7 +145,7 @@ function FormBody() {
             <Form.Select
               defaultValue="Choose..."
               value={person.gender}
-              onChange={(e) => setPerson({ ...person, gender: e.target.value })}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setPerson({ ...person, gender: e.target.value })}
             >
               <option>Choose...</option>
               <option>Male</option>
@@ -160,7 +158,7 @@ function FormBody() {
             <Form.Select
               defaultValue="Choose..."
               value={person.status}
-              onChange={(e) => setPerson({ ...person, status: e.target.value })}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setPerson({ ...person, status: e.target.value })}
             >
               <option>Choose...</option>
               <option>Single</option>
@@ -175,7 +173,7 @@ function FormBody() {
             <Form.Label>City</Form.Label>
             <Form.Control
               value={person.city}
-              onChange={(e) => setPerson({ ...person, city: e.target.value })}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPerson({ ...person, city: e.target.value })}
             />
           </Form.Group>
 
@@ -184,7 +182,7 @@ function FormBody() {
             <Form.Select
               defaultValue="Choose..."
               value={person.state}
-              onChange={(e) => setPerson({ ...person, state: e.target.value })}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setPerson({ ...person, state: e.target.value })}
             >
               <option>Choose...</option>
               {StateList.map((stateName, index: any) => (
@@ -196,14 +194,7 @@ function FormBody() {
           <Form.Group as={Col} controlId="formGridZip">
             <Form.Label>Zip</Form.Label>
             <Form.Control
-              value={person.zip === null ? "" : person.zip.toString()}
-              onChange={(e) =>
-                setPerson({
-                  ...person,
-                  zip:
-                    e.target.value === "" ? null : parseInt(e.target.value, 10),
-                })
-              }
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPerson({ ...person, zip: parseInt(e.target.value, 10) })}
             />
           </Form.Group>
         </Row>
@@ -211,7 +202,7 @@ function FormBody() {
         <Form.Group className="mb-3" id="formGridCheckbox">
           <Form.Check
             type="checkbox"
-            label="Check me out"
+            label="I have read the terms & conditions"
             checked={check}
             onChange={handleCheckbox}
           />

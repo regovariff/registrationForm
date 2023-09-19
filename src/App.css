@@ -12,3 +12,14 @@
 .mainform {
   text-align: left;
 }
+
+.inputContainer{
+  width: 100%;
+  padding: 7px 12px;
+  margin: 8px 0;
+  display: inline-block;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
