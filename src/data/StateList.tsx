@@ -1,0 +1,15 @@
+export const StateList = [
+  "Perlis",
+  "Perak",
+  "Kedah",
+  "Pulau Pinang",
+  "Negeri Sembilan",
+  "Selangor",
+  "Kelantan",
+  "Terengganu",
+  "Pahang",
+  "Johor",
+  "Melaka",
+  "Sabah",
+  "Sarawak",
+];
