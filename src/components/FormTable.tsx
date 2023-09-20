@@ -31,37 +31,35 @@ function FormTable() {
 
   return (
     <>
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Fullname</th>
-            <th scope="col">Username</th>
-            <th scope="col">Email</th>
-            <th scope="col">Address</th>
-            <th scope="col">Gender</th>
-            <th scope="col">Status</th>
-            <th scope="col">City</th>
-            <th scope="col">State</th>
-            <th scope="col">Zip</th>
+      <table className="formTable">
+        <tr>
+          <th>#</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Gender</th>
+          <th>City</th>
+          <th>Zip Code</th>
+          <th>State</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+        {data.map((person: Person, index: number) => (
+          <tr key={index}>
+            <td scope="row">{index + 1}</td>
+            <td>{person.username}</td>
+            <td>{person.email}</td>
+            <td>{person.gender}</td>
+            <td>{person.city}</td>
+            <td>{person.zip}</td>
+            <td>{person.state}</td>
+            <td>{person.status}</td>
+            <td>
+              <button className="button">View</button>
+              <button className="button">Edit</button>
+              <button className="button">Delete</button>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {data.map((person: Person, index: number) => (
-            <tr key={index}>
-              <th scope="row">{index + 1}</th>
-              <td>{person.fullname}</td>
-              <td>{person.username}</td>
-              <td>{person.email}</td>
-              <td>{person.address}</td>
-              <td>{person.gender}</td>
-              <td>{person.status}</td>
-              <td>{person.city}</td>
-              <td>{person.state}</td>
-              <td>{person.zip}</td>
-            </tr>
-          ))}
-        </tbody>
+        ))}
       </table>
     </>
   );
