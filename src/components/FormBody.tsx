@@ -12,7 +12,7 @@ interface Person {
   status: string;
   city: string;
   state: string;
-  zip: number;
+  zip: string;
 }
 
 function FormBody() {
@@ -26,7 +26,7 @@ function FormBody() {
     status: "",
     city: "",
     state: "",
-    zip: 34600,
+    zip: "",
   });
 
   const [check, setCheck] = useState<boolean>(false);
@@ -226,8 +226,9 @@ function FormBody() {
               <input
                 className="inputContainer"
                 type="text"
+                value={person.zip}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setPerson({ ...person, zip: parseInt(e.target.value, 10) })
+                  setPerson({ ...person, zip: e.target.value })
                 }
                 placeholder="Zip Code"
               />

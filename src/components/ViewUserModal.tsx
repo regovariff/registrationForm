@@ -8,7 +8,7 @@ interface User {
   status: string;
   city: string;
   state: string;
-  zip: number | null;
+  zip: string;
 }
 
 // Define the props for the ViewUserModal component

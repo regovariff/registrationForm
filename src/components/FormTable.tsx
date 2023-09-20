@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
-import FormBody from "./FormBody";
 import ViewUserModal from "./ViewUserModal";
+import EditUserModal from "./EditUserModal";
 
 interface Person {
   fullname: string;
@@ -12,12 +12,13 @@ interface Person {
   status: string;
   city: string;
   state: string;
-  zip: number | null;
+  zip: string;
 }
 
 function FormTable() {
   const [data, setData] = useState<Person[]>([]);
-  const [display, setDisplay] = useState(false);
+  const [displayViewModal, setDisplayViewModal] = useState(false);
+  const [displayEditModal, setDisplayEditModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState<Person | null>(null);
 
   const persons = useMemo(() => {
@@ -35,11 +36,12 @@ function FormTable() {
 
   const viewUser = (user: Person) => {
     setSelectedUser(user);
-    setDisplay(true);
+    setDisplayViewModal(true);
   };
 
-  const editUser = () => {
-    console.log("edit");
+  const editUser = (user: Person) => {
+    setSelectedUser(user);
+    setDisplayEditModal(true);
   };
 
   const deleteUser = () => {
@@ -48,13 +50,6 @@ function FormTable() {
 
   return (
     <>
-      {/* <div id="user-edit-form" className="user-edit-form">
-        <form id="prompt-form">
-          <div id="prompt-message">Edit User</div>
-          <FormBody />
-          <input type="button" name="cancel" value={"Cancel"} />
-        </form>
-      </div> */}
       <table className="formTable">
         <thead>
           <tr>
@@ -84,7 +79,7 @@ function FormTable() {
                 <button className="button" onClick={() => viewUser(person)}>
                   View
                 </button>
-                <button className="button" onClick={editUser}>
+                <button className="button" onClick={() => editUser(person)}>
                   Edit
                 </button>
                 <button className="button" onClick={deleteUser}>
@@ -95,8 +90,11 @@ function FormTable() {
           ))}
         </tbody>
       </table>
-      {display && selectedUser && (
-        <ViewUserModal user={selectedUser} onClose={() => setDisplay(false)} />
+      {displayViewModal && selectedUser && (
+        <ViewUserModal user={selectedUser} onClose={() => setDisplayViewModal(false)} />
+      )}
+      {displayEditModal && selectedUser && (
+        <EditUserModal user={selectedUser} onClose={() => setDisplayEditModal(false)} />
       )}
     </>
   );
