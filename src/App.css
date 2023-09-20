@@ -13,6 +13,13 @@
   text-align: left;
 }
 
+/* registration form start */
+
+.regForm {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+
 .inputContainer{
   width: 100%;
   padding: 7px 12px;
@@ -23,3 +30,63 @@
   border-radius: 4px;
   box-sizing: border-box;
 }
+
+.regForm .item label{
+  display: block;
+    margin-top: 10px;
+    font-size: 18px;
+    text-align: left;
+}
+
+.regForm .itemhorizontal{
+  display: flex;
+  gap: 20px;
+}
+
+.regForm .itemhorizontal .item{
+  width: 50%;
+}
+
+.checkForm{
+  display: flex;
+  text-align: left;
+  gap: 10px;
+}
+
+.checkForm input[type=checkbox]{
+  display: inline-block;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* registration form end */
+
+/* button start */
+
+.button {
+  background-color: chocolate;
+  border: none;
+  color: white;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 6px;
+  margin-top: 1rem;
+}
+
+.button:hover {
+  background-color: #C4A484;
+}
+
+.button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+/* button end */
