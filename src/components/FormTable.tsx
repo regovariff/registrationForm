@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import ViewUserModal from "./ViewUserModal";
 import EditUserModal from "./EditUserModal";
 
@@ -21,18 +21,24 @@ function FormTable() {
   const [displayEditModal, setDisplayEditModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState<Person | null>(null);
 
-  const persons = useMemo(() => {
-    const storedData = localStorage.getItem("persons");
-    return storedData ? JSON.parse(storedData) : [];
-  }, []);
+  const storedData = localStorage.getItem("persons");
+  let newStoredData:any = null;
+
+  if (storedData) {
+    newStoredData = JSON.parse(storedData);
+  }
 
   useEffect(() => {
-    // Retrieve data from local storage
-    const storedData = localStorage.getItem("persons");
-    if (storedData) {
-      setData(JSON.parse(storedData));
-    }
-  }, [persons]);
+    setData(newStoredData);
+  }, []);
+
+  // useEffect(() => {
+  //   // Retrieve data from local storage
+  //   const storedData = localStorage.getItem("persons");
+  //   if (storedData) {
+  //     setData(JSON.parse(storedData));
+  //   }
+  // }, []);
 
   const viewUser = (user: Person) => {
     setSelectedUser(user);
@@ -47,22 +53,22 @@ function FormTable() {
   const deleteUser = (userToDelete: Person) => {
     if (window.confirm("Delete?")) {
       const storedDataString = localStorage.getItem("persons");
-  
+
       if (storedDataString) {
         const storedData = JSON.parse(storedDataString);
-  
+
         // Find the index of the user to delete based on username
         const indexToDelete = storedData.findIndex(
           (user: Person) => user.username === userToDelete.username
         );
-  
+
         if (indexToDelete !== -1) {
           storedData.splice(indexToDelete, 1);
-  
+
           const updatedDataString = JSON.stringify(storedData);
-  
+
           localStorage.setItem("persons", updatedDataString);
-  
+
           setData(storedData);
         }
       }
@@ -74,7 +80,7 @@ function FormTable() {
       <table className="formTable">
         <thead>
           <tr>
-            <th>#</th>
+            <th>No</th>
             <th>Username</th>
             <th>Email</th>
             <th>Gender</th>

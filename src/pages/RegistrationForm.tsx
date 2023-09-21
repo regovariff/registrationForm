@@ -5,9 +5,13 @@ function RegistrationForm() {
   return (
     <>
       <h1 className="headtitle">Registration Form</h1>
-      <FormBody />
+      <div className="container">
+        <FormBody />
+      </div>
       <h1 className="headtitle">Registered User</h1>
-      <FormTable />
+      <div className="container">
+        <FormTable />
+      </div>
     </>
   );
 }

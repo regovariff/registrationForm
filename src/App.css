@@ -1,5 +1,5 @@
 #root {
-  max-width: 1280px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -89,6 +89,10 @@
   cursor: not-allowed;
 }
 
+.buttonBorder{
+  margin-top: 2rem;
+}
+
 /* button end */
 
 /* form table */
@@ -147,4 +151,16 @@
   right: 30px;
   cursor: pointer;
   color: black;
+}
+
+/* container */
+
+.container{
+  width: 5px black;
+  box-sizing: content-box;
+  background-color: #c79f7b;
+  border-radius: 10px;
+  padding: 2px 30px;
+  margin-bottom: 3rem;
+  margin-top: 1rem;
 }
