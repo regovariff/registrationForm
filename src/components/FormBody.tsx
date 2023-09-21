@@ -64,6 +64,7 @@ function FormBody() {
         };
         const updatedPersons = [...persons, newPerson];
         localStorage.setItem("persons", JSON.stringify(updatedPersons));
+        location.reload();
       } else {
         window.alert("Fill all the information");
       }

@@ -17,8 +17,8 @@ interface Person {
 
 function FormTable() {
   const [data, setData] = useState<Person[]>([]);
-  const [displayViewModal, setDisplayViewModal] = useState(false);
-  const [displayEditModal, setDisplayEditModal] = useState(false);
+  const [displayViewModal, setDisplayViewModal] = useState<boolean>(false);
+  const [displayEditModal, setDisplayEditModal] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<Person | null>(null);
 
   const storedData = localStorage.getItem("persons");
