@@ -60,7 +60,7 @@ function EditUserModal({ user, onClose }: ViewUserModalProps) {
 
       // Save the updated array to localStorage
       localStorage.setItem("persons", JSON.stringify(updatedPersons));
-      location.reload();
+      //location.reload();
 
       onClose();
     } else {

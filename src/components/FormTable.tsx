@@ -23,22 +23,20 @@ function FormTable() {
 
   const storedData = localStorage.getItem("persons");
   let newStoredData:any = null;
+  let stringNewStoredData:string = "";
+  let anotherNewData: any = null;
+  let parsedAnotherNewData: any = null;
 
   if (storedData) {
     newStoredData = JSON.parse(storedData);
+    stringNewStoredData = JSON.stringify("persons", newStoredData);
+    anotherNewData = localStorage.getItem("persons");
+    parsedAnotherNewData = JSON.parse(anotherNewData);
   }
 
   useEffect(() => {
     setData(newStoredData);
-  }, []);
-
-  // useEffect(() => {
-  //   // Retrieve data from local storage
-  //   const storedData = localStorage.getItem("persons");
-  //   if (storedData) {
-  //     setData(JSON.parse(storedData));
-  //   }
-  // }, []);
+  }, [parsedAnotherNewData]);
 
   const viewUser = (user: Person) => {
     setSelectedUser(user);
