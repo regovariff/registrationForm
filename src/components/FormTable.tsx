@@ -44,8 +44,29 @@ function FormTable() {
     setDisplayEditModal(true);
   };
 
-  const deleteUser = () => {
-    console.log("delete");
+  const deleteUser = (userToDelete: Person) => {
+    if (window.confirm("Delete?")) {
+      const storedDataString = localStorage.getItem("persons");
+  
+      if (storedDataString) {
+        const storedData = JSON.parse(storedDataString);
+  
+        // Find the index of the user to delete based on username
+        const indexToDelete = storedData.findIndex(
+          (user: Person) => user.username === userToDelete.username
+        );
+  
+        if (indexToDelete !== -1) {
+          storedData.splice(indexToDelete, 1);
+  
+          const updatedDataString = JSON.stringify(storedData);
+  
+          localStorage.setItem("persons", updatedDataString);
+  
+          setData(storedData);
+        }
+      }
+    }
   };
 
   return (
@@ -82,7 +103,7 @@ function FormTable() {
                 <button className="button" onClick={() => editUser(person)}>
                   Edit
                 </button>
-                <button className="button" onClick={deleteUser}>
+                <button className="button" onClick={() => deleteUser(person)}>
                   Delete
                 </button>
               </td>
@@ -91,10 +112,16 @@ function FormTable() {
         </tbody>
       </table>
       {displayViewModal && selectedUser && (
-        <ViewUserModal user={selectedUser} onClose={() => setDisplayViewModal(false)} />
+        <ViewUserModal
+          user={selectedUser}
+          onClose={() => setDisplayViewModal(false)}
+        />
       )}
       {displayEditModal && selectedUser && (
-        <EditUserModal user={selectedUser} onClose={() => setDisplayEditModal(false)} />
+        <EditUserModal
+          user={selectedUser}
+          onClose={() => setDisplayEditModal(false)}
+        />
       )}
     </>
   );
