@@ -64,6 +64,7 @@ function FormBody() {
         };
         const updatedPersons = [...persons, newPerson];
         localStorage.setItem("persons", JSON.stringify(updatedPersons));
+        window.alert("Success");
         location.reload();
       } else {
         window.alert("Fill all the information");
@@ -238,7 +239,7 @@ function FormBody() {
 
           <div className="checkForm">
             <input type="checkbox" checked={check} onChange={handleCheckbox} />
-            <label htmlFor="vehicle1">
+            <label htmlFor="checkbox1">
               {" "}
               I have read the terms & conditions
             </label>
