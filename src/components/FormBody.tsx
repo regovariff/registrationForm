@@ -15,7 +15,7 @@ interface Person {
   zip: string;
 }
 
-function FormBody() {
+function FormBody({ updatedPersons }: any) {
   const [person, setPerson] = useState<Person>({
     fullname: "",
     username: "",
@@ -62,7 +62,7 @@ function FormBody() {
           zip: person.zip,
           city: person.city,
         };
-        const updatedPersons = [...persons, newPerson];
+        updatedPersons = [...persons, newPerson];
         localStorage.setItem("persons", JSON.stringify(updatedPersons));
         window.alert("Success");
         //location.reload();
@@ -81,7 +81,7 @@ function FormBody() {
 
   useEffect(() => {
     localStorage.setItem("persons", JSON.stringify(persons));
-  }, [person, persons]);
+  }, [updatedPersons]);
 
   return (
     <>
@@ -104,6 +104,7 @@ function FormBody() {
             <label htmlFor="fullname">Username</label>
             <input
               className="inputContainer"
+              autoComplete="username"
               type="text"
               value={person.username}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -118,6 +119,7 @@ function FormBody() {
               <label htmlFor="email">Email</label>
               <input
                 className="inputContainer"
+                autoComplete="email"
                 type="email"
                 value={person.email}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -131,6 +133,7 @@ function FormBody() {
               <label htmlFor="password">Password</label>
               <input
                 className="inputContainer"
+                autoComplete="new-password"
                 type="password"
                 value={person.password}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -160,7 +163,6 @@ function FormBody() {
               <select
                 name="gender"
                 className="inputContainer"
-                defaultValue={"Choose..."}
                 value={person.gender}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                   setPerson({ ...person, gender: e.target.value })
@@ -177,7 +179,6 @@ function FormBody() {
               <select
                 name="status"
                 className="inputContainer"
-                defaultValue="Choose..."
                 value={person.status}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                   setPerson({ ...person, status: e.target.value })
@@ -210,7 +211,6 @@ function FormBody() {
               <select
                 name="status"
                 className="inputContainer"
-                defaultValue="Choose..."
                 value={person.state}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                   setPerson({ ...person, state: e.target.value })

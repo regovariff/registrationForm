@@ -15,28 +15,15 @@ interface Person {
   zip: string;
 }
 
-function FormTable() {
+function FormTable({ updatedPersons }: any) {
   const [data, setData] = useState<Person[]>([]);
   const [displayViewModal, setDisplayViewModal] = useState<boolean>(false);
   const [displayEditModal, setDisplayEditModal] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<Person | null>(null);
 
-  const storedData = localStorage.getItem("persons");
-  let newStoredData:any = null;
-  let stringNewStoredData:string = "";
-  let anotherNewData: any = null;
-  let parsedAnotherNewData: any = null;
-
-  if (storedData) {
-    newStoredData = JSON.parse(storedData);
-    stringNewStoredData = JSON.stringify("persons", newStoredData);
-    anotherNewData = localStorage.getItem("persons");
-    parsedAnotherNewData = JSON.parse(anotherNewData);
-  }
-
   useEffect(() => {
-    setData(newStoredData);
-  }, [parsedAnotherNewData]);
+    setData(updatedPersons);  
+  }, [data]);
 
   const viewUser = (user: Person) => {
     setSelectedUser(user);
