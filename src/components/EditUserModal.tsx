@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import { StateList } from "../data/StateList";
 
 interface User {
@@ -71,15 +71,6 @@ function EditUserModal({
       window.alert("Fill all the information");
     }
   };
-
-  // const persons = useMemo(() => {
-  //   const storedUsers = localStorage.getItem("persons");
-  //   return storedUsers ? JSON.parse(storedUsers) : [];
-  // }, []);
-
-  // useEffect(() => {
-  //   localStorage.setItem("persons", JSON.stringify(persons));
-  // }, [person, persons]);
 
   return (
     <>

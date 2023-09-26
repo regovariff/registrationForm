@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 
 import { StateList } from "../data/StateList";
 
@@ -62,15 +62,9 @@ function FormBody({ updatedPersons, setUpdatedPersons }: any) {
           zip: person.zip,
           city: person.city,
         };
-        // const getUpdatedPersons = localStorage.getItem("persons");
-        // if (getUpdatedPersons) {
-        //   let parsedPersons = JSON.parse(getUpdatedPersons);
-        //   setUpdatedPersons([...parsedPersons, newPerson]);
-        // }
-        setUpdatedPersons([...updatedPersons, person]);
+        setUpdatedPersons([...updatedPersons, newPerson]);
         localStorage.setItem("persons", JSON.stringify(updatedPersons));
         window.alert("Success");
-        //location.reload();
       } else {
         window.alert("Fill all the information");
       }
@@ -79,13 +73,7 @@ function FormBody({ updatedPersons, setUpdatedPersons }: any) {
     }
   };
 
-  // const persons = useMemo(() => {
-  //   const storedUsers = localStorage.getItem("persons");
-  //   return storedUsers ? JSON.parse(storedUsers) : [];
-  // }, []);
-
   useEffect(() => {
-    // This code will run whenever updatedPersons changes
     localStorage.setItem("persons", JSON.stringify(updatedPersons));
   }, [updatedPersons]);
 

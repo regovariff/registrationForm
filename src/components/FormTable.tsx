@@ -32,8 +32,10 @@ function FormTable({ updatedPersons, setUpdatedPersons }: any) {
 
   const deleteUser = (userToDelete: Person) => {
     if (window.confirm("Delete?")) {
-      if (updatedPersons) {
-        const storedData = updatedPersons;
+      const storedDataString = localStorage.getItem("persons");
+      
+      if (storedDataString) {
+        const storedData = JSON.parse(storedDataString);
 
         // Find the index of the user to delete based on username
         const indexToDelete = storedData.findIndex(
