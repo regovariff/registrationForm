@@ -32,25 +32,20 @@ function FormTable({ updatedPersons, setUpdatedPersons }: any) {
 
   const deleteUser = (userToDelete: Person) => {
     if (window.confirm("Delete?")) {
-      const storedDataString = localStorage.getItem("persons");
-      
-      if (storedDataString) {
-        const storedData = JSON.parse(storedDataString);
+      const storedData = [...updatedPersons];
 
-        // Find the index of the user to delete based on username
-        const indexToDelete = storedData.findIndex(
-          (user: Person) => user.username === userToDelete.username
-        );
+      const indexToDelete = storedData.findIndex(
+        (user: Person) => user.username === userToDelete.username
+      );
 
-        if (indexToDelete !== -1) {
-          storedData.splice(indexToDelete, 1);
+      if (indexToDelete !== -1) {
+        storedData.splice(indexToDelete, 1);
 
-          const updatedDataString = JSON.stringify(storedData);
+        const updatedDataString = JSON.stringify(storedData);
 
-          localStorage.setItem("persons", updatedDataString);
+        localStorage.setItem("persons", updatedDataString);
 
-          setUpdatedPersons(storedData);
-        }
+        setUpdatedPersons(storedData);
       }
     }
   };

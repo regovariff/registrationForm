@@ -41,18 +41,7 @@ function EditUserModal({
 
   const handleUpdate = (e: React.FormEvent) => {
     e.preventDefault();
-    if (
-      person.fullname &&
-      person.username &&
-      person.email &&
-      person.password &&
-      person.address &&
-      person.gender &&
-      person.status &&
-      person.state &&
-      person.zip &&
-      person.city
-    ) {
+    if (Object.values(person).every((value) => value)) {
       // Create a new array with the updated person
       const newUpdatedPersons = JSON.parse(
         localStorage.getItem("persons") || "[]"

@@ -62,8 +62,9 @@ function FormBody({ updatedPersons, setUpdatedPersons }: any) {
           zip: person.zip,
           city: person.city,
         };
-        setUpdatedPersons([...updatedPersons, newPerson]);
-        localStorage.setItem("persons", JSON.stringify(updatedPersons));
+        const newArr = [...updatedPersons, newPerson];
+        setUpdatedPersons(newArr);
+        localStorage.setItem("persons", JSON.stringify(newArr));
         window.alert("Success");
       } else {
         window.alert("Fill all the information");

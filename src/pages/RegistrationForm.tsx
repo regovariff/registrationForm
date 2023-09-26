@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 import FormBody from "../components/FormBody";
 import FormTable from "../components/FormTable";
@@ -19,16 +19,20 @@ interface Person {
 function RegistrationForm() {
   const [updatedPersons, setUpdatedPersons] = useState<Person[]>([]);
 
-  const persons: any = useMemo(() => {
-    const oldStoredUsers = localStorage.getItem("persons");
-    return oldStoredUsers ? JSON.parse(oldStoredUsers) : [];
-  }, []);
+  const fetchUsers = () => {
+    try {
+      const allUsers = localStorage.getItem("persons");
+      if (!allUsers) return;
+      const allParsedUsers = JSON.parse(allUsers);
+      setUpdatedPersons(allParsedUsers);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    if (persons) {
-      setUpdatedPersons(persons);
-    }
-  }, [persons]);
+    fetchUsers();
+  }, []);
 
   return (
     <>
