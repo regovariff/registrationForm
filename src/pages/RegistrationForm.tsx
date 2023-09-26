@@ -34,11 +34,11 @@ function RegistrationForm() {
     <>
       <h1 className="headtitle">Registration Form</h1>
       <div className="container">
-        <FormBody updatedPersons={updatedPersons} />
+        <FormBody updatedPersons={updatedPersons} setUpdatedPersons={setUpdatedPersons}/>
       </div>
       <h1 className="headtitle">Registered User</h1>
       <div className="container">
-        <FormTable updatedPersons={updatedPersons} />
+        <FormTable updatedPersons={updatedPersons} setUpdatedPersons={setUpdatedPersons}/>
       </div>
     </>
   );

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ViewUserModal from "./ViewUserModal";
 import EditUserModal from "./EditUserModal";
 
@@ -15,15 +15,10 @@ interface Person {
   zip: string;
 }
 
-function FormTable({ updatedPersons }: any) {
-  const [data, setData] = useState<Person[]>([]);
+function FormTable({ updatedPersons, setUpdatedPersons }: any) {
   const [displayViewModal, setDisplayViewModal] = useState<boolean>(false);
   const [displayEditModal, setDisplayEditModal] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<Person | null>(null);
-
-  useEffect(() => {
-    setData(updatedPersons);  
-  }, [data]);
 
   const viewUser = (user: Person) => {
     setSelectedUser(user);
@@ -37,10 +32,8 @@ function FormTable({ updatedPersons }: any) {
 
   const deleteUser = (userToDelete: Person) => {
     if (window.confirm("Delete?")) {
-      const storedDataString = localStorage.getItem("persons");
-
-      if (storedDataString) {
-        const storedData = JSON.parse(storedDataString);
+      if (updatedPersons) {
+        const storedData = updatedPersons;
 
         // Find the index of the user to delete based on username
         const indexToDelete = storedData.findIndex(
@@ -54,7 +47,7 @@ function FormTable({ updatedPersons }: any) {
 
           localStorage.setItem("persons", updatedDataString);
 
-          setData(storedData);
+          setUpdatedPersons(storedData);
         }
       }
     }
@@ -77,7 +70,7 @@ function FormTable({ updatedPersons }: any) {
           </tr>
         </thead>
         <tbody>
-          {data.map((person: Person, index: number) => (
+          {updatedPersons.map((person: Person, index: number) => (
             <tr key={index}>
               <td scope="row">{index + 1}</td>
               <td>{person.username}</td>
@@ -112,6 +105,7 @@ function FormTable({ updatedPersons }: any) {
         <EditUserModal
           user={selectedUser}
           onClose={() => setDisplayEditModal(false)}
+          setUpdatedPersons={setUpdatedPersons}
         />
       )}
     </>

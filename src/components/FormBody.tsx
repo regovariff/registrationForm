@@ -15,7 +15,7 @@ interface Person {
   zip: string;
 }
 
-function FormBody({ updatedPersons }: any) {
+function FormBody({ updatedPersons, setUpdatedPersons }: any) {
   const [person, setPerson] = useState<Person>({
     fullname: "",
     username: "",
@@ -62,7 +62,12 @@ function FormBody({ updatedPersons }: any) {
           zip: person.zip,
           city: person.city,
         };
-        updatedPersons = [...persons, newPerson];
+        // const getUpdatedPersons = localStorage.getItem("persons");
+        // if (getUpdatedPersons) {
+        //   let parsedPersons = JSON.parse(getUpdatedPersons);
+        //   setUpdatedPersons([...parsedPersons, newPerson]);
+        // }
+        setUpdatedPersons([...updatedPersons, person]);
         localStorage.setItem("persons", JSON.stringify(updatedPersons));
         window.alert("Success");
         //location.reload();
@@ -74,13 +79,14 @@ function FormBody({ updatedPersons }: any) {
     }
   };
 
-  const persons = useMemo(() => {
-    const storedUsers = localStorage.getItem("persons");
-    return storedUsers ? JSON.parse(storedUsers) : [];
-  }, []);
+  // const persons = useMemo(() => {
+  //   const storedUsers = localStorage.getItem("persons");
+  //   return storedUsers ? JSON.parse(storedUsers) : [];
+  // }, []);
 
   useEffect(() => {
-    localStorage.setItem("persons", JSON.stringify(persons));
+    // This code will run whenever updatedPersons changes
+    localStorage.setItem("persons", JSON.stringify(updatedPersons));
   }, [updatedPersons]);
 
   return (
@@ -246,7 +252,9 @@ function FormBody({ updatedPersons }: any) {
           </div>
 
           <div className="buttonBorder">
-            <button className="button" type="submit" disabled={!check}>Submit</button>
+            <button className="button" type="submit" disabled={!check}>
+              Submit
+            </button>
           </div>
         </form>
       </div>

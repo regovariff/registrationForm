@@ -18,9 +18,14 @@ interface User {
 interface ViewUserModalProps {
   user: User;
   onClose: () => void;
+  setUpdatedPersons: any;
 }
 
-function EditUserModal({ user, onClose }: ViewUserModalProps) {
+function EditUserModal({
+  user,
+  onClose,
+  setUpdatedPersons,
+}: ViewUserModalProps) {
   const [person, setPerson] = useState<User>({
     fullname: user.fullname,
     username: user.username,
@@ -49,7 +54,7 @@ function EditUserModal({ user, onClose }: ViewUserModalProps) {
       person.city
     ) {
       // Create a new array with the updated person
-      const updatedPersons = JSON.parse(
+      const newUpdatedPersons = JSON.parse(
         localStorage.getItem("persons") || "[]"
       ).map((p: User) => {
         if (p.username === user.username) {
@@ -59,23 +64,22 @@ function EditUserModal({ user, onClose }: ViewUserModalProps) {
       });
 
       // Save the updated array to localStorage
-      localStorage.setItem("persons", JSON.stringify(updatedPersons));
-      //location.reload();
-
+      localStorage.setItem("persons", JSON.stringify(newUpdatedPersons));
+      setUpdatedPersons(newUpdatedPersons);
       onClose();
     } else {
       window.alert("Fill all the information");
     }
   };
 
-  const persons = useMemo(() => {
-    const storedUsers = localStorage.getItem("persons");
-    return storedUsers ? JSON.parse(storedUsers) : [];
-  }, []);
+  // const persons = useMemo(() => {
+  //   const storedUsers = localStorage.getItem("persons");
+  //   return storedUsers ? JSON.parse(storedUsers) : [];
+  // }, []);
 
-  useEffect(() => {
-    localStorage.setItem("persons", JSON.stringify(persons));
-  }, [person, persons]);
+  // useEffect(() => {
+  //   localStorage.setItem("persons", JSON.stringify(persons));
+  // }, [person, persons]);
 
   return (
     <>
@@ -165,7 +169,6 @@ function EditUserModal({ user, onClose }: ViewUserModalProps) {
                   <select
                     name="gender"
                     className="inputContainer"
-                    defaultValue={"Choose..."}
                     value={person.gender}
                     onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                       setPerson({ ...user, gender: e.target.value })
@@ -182,7 +185,6 @@ function EditUserModal({ user, onClose }: ViewUserModalProps) {
                   <select
                     name="status"
                     className="inputContainer"
-                    defaultValue="Choose..."
                     value={person.status}
                     onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                       setPerson({ ...user, status: e.target.value })
@@ -216,7 +218,6 @@ function EditUserModal({ user, onClose }: ViewUserModalProps) {
                   <select
                     name="status"
                     className="inputContainer"
-                    defaultValue="Choose..."
                     value={person.state}
                     onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                       setPerson({ ...user, state: e.target.value })
